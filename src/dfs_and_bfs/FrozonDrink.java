@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class FrozenDrink {
+public class FrozonDrink {
     public static int width, height;
     public static int[][] map = new int[1000][1000];
 
