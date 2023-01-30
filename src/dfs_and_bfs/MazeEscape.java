@@ -30,7 +30,7 @@ public class MazeEscape {
     public static int dx[] = {-1, 1, 0, 0};
     public static int dy[] = {0, 0, -1, 1};
 
-    public static int bfs(int x, int y) {
+    static int bfs(int x, int y) {
         Queue<Node> q = new LinkedList<>();
         q.offer(new Node(x, y));
         while (!q.isEmpty()) {
