@@ -1,12 +1,9 @@
 
-import java.io.*;
+// IntelliJ API Decompiler stub source generated from a class file
+// Implementation of methods is not available
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+    public Main() { /* compiled code */ }
 
-
-
-    }
+    public static void main(java.lang.String[] args) throws java.io.IOException { /* compiled code */ }
 }
