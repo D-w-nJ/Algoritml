@@ -1,29 +1,38 @@
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
-class Solution {
-    public static String solution(String[] participant, String[] completion) {
-        Arrays.sort(participant);
-        Arrays.sort(completion);
-        String result = "";
-        boolean flag = false;
-        for(int i=0;i<completion.length;i++){
-            System.out.println(participant[i]);
-            System.out.println(completion[i]);
-            if(participant[i]!=completion[i]){
-                flag = true;
-                result = participant[i];
-            }
-        }
-        System.out.println(flag);
-        if(flag == false){
-            result = participant[participant.length-1];
-            System.out.println("**"+participant.length);
+
+class Main {
+    static int N, M;
+    static int[] arr;
+    static StringBuilder sb = new StringBuilder();
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
+        arr = new int[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        return result;
+        Arrays.sort(arr);
+        dfs(0, "", M);
+        System.out.println(sb);
     }
 
-    public static void main(String[] args) {
-        System.out.println(solution(new String[]{"leo", "kiki", "eden"}, new String[]{"eden", "kiki"}));
+    static void dfs(int start, String pre, int num) {
+        if (num == 0) {
+            sb.append(pre).append("\n");
+            return;
+        }
+        for (int i = start; i < N; i++) {
+            String tmp = pre + arr[i] + " ";
+            dfs(i, tmp, num - 1);
+        }
     }
 }
