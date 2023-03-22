@@ -1,38 +1,48 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.StringTokenizer;
 
 class Main {
-    static int N, M;
-    static int[] arr;
-    static StringBuilder sb = new StringBuilder();
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        st = new StringTokenizer(br.readLine());
-        arr = new int[N];
+        int[][] arr = new int[N][N];
+
         for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < N; j++) {
+                arr[i][j] = Integer.parseInt(st.nextToken());
+                if (i > 0)
+                    arr[i][j] += arr[i - 1][j];
+                if (j > 0)
+                    arr[i][j] += arr[i][j - 1];
+                if (j > 0 && i > 0)
+                    arr[i][j] -= arr[i - 1][j - 1];
+            }
         }
 
-        Arrays.sort(arr);
-        dfs(0, "", M);
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int x1 = Integer.parseInt(st.nextToken()) - 1;
+            int y1 = Integer.parseInt(st.nextToken()) - 1;
+            int x2 = Integer.parseInt(st.nextToken()) - 1;
+            int y2 = Integer.parseInt(st.nextToken()) - 1;
+            if (x1 == 0 && y1 == 0)
+                sb.append(arr[x2][y2]).append("\n");
+            else if (x1 == 0)
+                sb.append(arr[x2][y2] - arr[x2][y1 - 1]).append("\n");
+            else if (y1 == 0)
+                sb.append(arr[x2][y2] - arr[x1 - 1][y2]).append("\n");
+            else
+                sb.append(arr[x2][y2] - arr[x2][y1 - 1] - arr[x1 - 1][y2] + arr[x1 - 1][y1 - 1]).append("\n");
+        }
+
         System.out.println(sb);
-    }
-
-    static void dfs(int start, String pre, int num) {
-        if (num == 0) {
-            sb.append(pre).append("\n");
-            return;
-        }
-        for (int i = start; i < N; i++) {
-            String tmp = pre + arr[i] + " ";
-            dfs(i, tmp, num - 1);
-        }
     }
 }
