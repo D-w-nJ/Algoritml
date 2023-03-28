@@ -5,61 +5,35 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 class Main {
-    static StringBuilder sb = new StringBuilder();
-    static ArrayList<ArrayList<Integer>> list;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        ArrayList<Integer> largest = new ArrayList<>();
+        largest.add(0);
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(0);
+        int max = 0;
+        boolean flag;
 
-        list = new ArrayList<>();
         for (int i = 0; i < N; i++) {
-            list.add(new ArrayList<>());
-        }
-        for (int i = 0; i < N; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            String tmp = st.nextToken();
-            String lNode = st.nextToken();
-            if (!lNode.equals("."))
-                list.get(tmp.charAt(0) - 'A').add(lNode.charAt(0) - 'A');
-            String rNode = st.nextToken();
-            if (!rNode.equals("."))
-                list.get(tmp.charAt(0) - 'A').add(rNode.charAt(0) - 'A');
-        }
-
-        dfs1(0);
-        sb.append("\n");
-        dfs3(0);
-        sb.append("\n");
-        dfs2(0);
-        System.out.println(sb);
-    }
-
-    static void dfs1(int node) {
-        sb.append((char) ('A' + node));
-        for (int i : list.get(node)) {
-            dfs1(i);
-        }
-    }
-
-    static void dfs2(int node) {
-        for (int i : list.get(node)) {
-            dfs2(i);
-        }
-        sb.append((char) ('A' + node));
-    }
-
-    static void dfs3(int node) {
-        boolean flag = false;
-        for (int i : list.get(node)) {
-            dfs3(i);
+            int tmp = Integer.parseInt(st.nextToken());
+            flag = false;
+            for (int j = 0; j < largest.size(); j++) {
+                if (largest.get(j) < tmp) {
+                    largest.set(j, tmp);
+                    list.set(j, list.get(j) + 1);
+                    flag = true;
+                    if (max < list.get(j))
+                        max = list.get(j);
+                }
+            }
             if (!flag) {
-                sb.append((char) ('A' + node));
-                flag = true;
+                list.add(1);
+                largest.add(tmp);
             }
         }
-        if (!flag) {
-            sb.append((char) ('A' + node));
-        }
+
+        System.out.println(max);
     }
 }
