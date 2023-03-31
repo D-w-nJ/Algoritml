@@ -1,40 +1,29 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.math.BigInteger;
 
-class Main {
+
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        ArrayList<Integer> largest = new ArrayList<>();
-        largest.add(0);
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(0);
-        int max = 0;
-        boolean flag;
+        String[] inputs = br.readLine().split(" ");
 
-        for (int i = 0; i < N; i++) {
-            int tmp = Integer.parseInt(st.nextToken());
-            flag = false;
-            for (int j = 0; j < largest.size(); j++) {
-                if (largest.get(j) < tmp) {
-                    largest.set(j, tmp);
-                    list.set(j, list.get(j) + 1);
-                    flag = true;
-                    if (max < list.get(j))
-                        max = list.get(j);
-                }
-            }
-            if (!flag) {
-                list.add(1);
-                largest.add(tmp);
-            }
+        int n = Integer.parseInt(inputs[0]);
+        int m = Integer.parseInt(inputs[1]);
+        if (n - m < m)
+            m = n - m;
+
+        BigInteger n1 = BigInteger.ONE;
+        BigInteger n2 = BigInteger.ONE;
+
+        for (int i = 0; i < m; i++) {
+            n1 = n1.multiply(new BigInteger(String.valueOf(n - i)));
+            n2 = n2.multiply(new BigInteger(String.valueOf(i + 1)));
         }
 
-        System.out.println(max);
+        BigInteger answer = n1.divide(n2);
+
+        System.out.println(answer);
     }
 }
