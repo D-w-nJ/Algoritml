@@ -1,29 +1,27 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
-
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] inputs = br.readLine().split(" ");
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        int n = Integer.parseInt(inputs[0]);
-        int m = Integer.parseInt(inputs[1]);
-        if (n - m < m)
-            m = n - m;
+        int H = sc.nextInt();
+        int W = sc.nextInt();
+        int N = sc.nextInt();
+        int M = sc.nextInt();
 
-        BigInteger n1 = BigInteger.ONE;
-        BigInteger n2 = BigInteger.ONE;
-
-        for (int i = 0; i < m; i++) {
-            n1 = n1.multiply(new BigInteger(String.valueOf(n - i)));
-            n2 = n2.multiply(new BigInteger(String.valueOf(i + 1)));
+        int numWidth = W / (M + 1) + 1;
+        if (W % (M + 1) == 0) {
+            numWidth -= 1;
         }
 
-        BigInteger answer = n1.divide(n2);
+        int numLength = H / (N + 1) + 1;
+        if (H % (N + 1) == 0) {
+            numLength -= 1;
+        }
 
-        System.out.println(answer);
+        System.out.println(numWidth * numLength);
     }
+
 }
