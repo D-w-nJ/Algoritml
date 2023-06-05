@@ -1,27 +1,30 @@
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int H = sc.nextInt();
-        int W = sc.nextInt();
         int N = sc.nextInt();
-        int M = sc.nextInt();
+        int K = sc.nextInt();
 
-        int numWidth = W / (M + 1) + 1;
-        if (W % (M + 1) == 0) {
-            numWidth -= 1;
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i <= N; i++) {
+            queue.add(i);
         }
 
-        int numLength = H / (N + 1) + 1;
-        if (H % (N + 1) == 0) {
-            numLength -= 1;
+        StringBuilder sb = new StringBuilder();
+        sb.append("<");
+
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < K - 1; i++) {
+                queue.add(queue.poll());
+            }
+            sb.append(queue.poll() + ", ");
         }
 
-        System.out.println(numWidth * numLength);
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append(">");
+
+        System.out.println(sb);
     }
-
 }
