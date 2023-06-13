@@ -1,30 +1,20 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int[] factors = new int[n];
 
-        int N = sc.nextInt();
-        int K = sc.nextInt();
-
-        Queue<Integer> queue = new LinkedList<>();
-        for (int i = 1; i <= N; i++) {
-            queue.add(i);
+        for (int i = 0; i < n; i++) {
+            factors[i] = scanner.nextInt();
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<");
+        Arrays.sort(factors);
 
-        while (!queue.isEmpty()) {
-            for (int i = 0; i < K - 1; i++) {
-                queue.add(queue.poll());
-            }
-            sb.append(queue.poll() + ", ");
-        }
+        long result = (long) factors[0] * factors[n-1];
 
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append(">");
-
-        System.out.println(sb);
+        System.out.println(result);
     }
 }
